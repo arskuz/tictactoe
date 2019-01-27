@@ -2,6 +2,8 @@ const BUT_NUM = 9
 
 let symbol = [];
 
+let gameover = false
+
 function massive_reload(){
 for (let j = 0; j <= BUT_NUM; j++){
    {symbol[j] = "?"}
@@ -25,12 +27,27 @@ function reset_screen(){
 reset_screen()
 
 function butclick(element){
+
+if(gameover){
+  alert(gameover)
+  return}
+
 if (freecell(element.id) == false) {
   alert("This cell is already occupied!")
   return
 }
+
+if(scanline("X")==element.id)
+  {gameover = "Game over! You've won against artifical mastermind!"
+  alert(gameover)
+  symbol[ element.id ] = "X"
+  reset_screen()
+  return
+}
+
 symbol[ element.id ] = "X"
 mastermind()
+check_draw()
 reset_screen()
 }
 
@@ -42,6 +59,25 @@ function freecell(cell_n){
   }
 }
 
+function check_draw(){
+
+  if(gameover){return}
+
+  let drw = true
+
+  for (let i = 0; i <= BUT_NUM; i++){
+    if(symbol[i]=="?")
+      {drw = false}
+    }
+
+  if(drw){
+    gameover = "Game over! Draw!"
+    alert(gameover)
+    reset_screen()
+    return
+  }
+}
+
 function mastermind(){
 
   if(freecell(4)){
@@ -49,6 +85,8 @@ function mastermind(){
     return}
   else if(scanline("0")>-1)
     {symbol[scanline("0")]="0"
+    gameover = "Game over! You've lost to artifical mastermind!"
+    alert(gameover)
     return}
   else if(scanline("X")>-1)
     {symbol[scanline("X")]="0"
@@ -59,9 +97,13 @@ function mastermind(){
         {symbol[k] = "0"
         return}
        }
-       return
      }
   }
+
+function end_game(msg){
+  gameover = msg
+  reset_screen()
+}
 // | 036 147 258
 // - 012 345 678
 function scanline(toscan){
