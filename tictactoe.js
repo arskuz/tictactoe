@@ -1,11 +1,11 @@
-const BUT_NUM = 9
+const BUT_NUMBER = 9
 
 let symbol = [];
 
 let gameover = false
 
 function massive_reload(){
-for (let j = 0; j <= BUT_NUM; j++){
+for (let j = 0; j <= BUT_NUMBER; j++){
    {symbol[j] = "?"}
    }
  }
@@ -17,7 +17,7 @@ massive_reload()
 
 function reset_screen(){
   div.innerHTML = " ";
-  for (let x = 0; x < BUT_NUM; x++){
+  for (let x = 0; x < BUT_NUMBER; x++){
        div.innerHTML+= "<button id='"+x+"' onclick='butclick(this)'>"+symbol[x]+"</button>"
        if( (x+1)%3==0 )
        {div.innerHTML+="<br>"}
@@ -65,7 +65,7 @@ function check_draw(){
 
   let drw = true
 
-  for (let i = 0; i <= BUT_NUM; i++){
+  for (let i = 0; i <= BUT_NUMBER; i++){
     if(symbol[i]=="?")
       {drw = false}
     }
@@ -92,7 +92,7 @@ function mastermind(){
     {symbol[scanline("X")]="0"
     return}
   else {
-    for (let k = 0; k <= BUT_NUM; k++){
+    for (let k = 0; k <= BUT_NUMBER; k++){
       if(symbol[k]=="?")
         {symbol[k] = "0"
         return}
@@ -104,8 +104,7 @@ function end_game(msg){
   gameover = msg
   reset_screen()
 }
-// | 036 147 258
-// - 012 345 678
+
 function scanline(toscan){
 
 //horisontal
@@ -174,3 +173,10 @@ else if(freecell(8) && symbol[0]==toscan && symbol[4]==toscan)
 else {return -1}
 
 }
+//function Scanline(toscan) will check places
+//with two symbols (toscan) and a free cell standing in a row
+//comp uses this function to block your rows and to fill its rows
+//this function also used to check victory condition:
+//if you're pressing on a free cell with two X's snanding
+//by it (thus filling the row), then it will
+//return filled cell instead of -1
